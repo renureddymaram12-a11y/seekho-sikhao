@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Seekho Sikhao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f3ebe0;
+    --paper-deep: #e7d9c6;
+    --surface: #faf6ef;
+    --ink: #2c241c;
+    --muted: #7a6554;
+    --saffron: #c45c26;
+    --saffron-deep: #9a4318;
+    --peacock: #1b5e56;
+    --peacock-deep: #12443e;
+    --leaf: #3d6b4f;
+    --border: #d7c7b2;
+    --font-sans: "Nunito Sans", "Segoe UI", sans-serif;
+    --font-display: "Fraunces", Georgia, serif;
+    --font-deva: "Tiro Devanagari Hindi", "Noto Serif Devanagari", serif;
+    --shadow: 0 0 0 1px rgba(44,36,28,.08), 0 1px 2px rgba(44,36,28,.06), 0 8px 20px -12px rgba(44,36,28,.18);
+    --shadow-h: 0 0 0 1px rgba(44,36,28,.12), 0 2px 4px rgba(44,36,28,.08), 0 14px 28px -14px rgba(44,36,28,.24);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-sans); line-height: 1.55; min-height: 100dvh; }
+  h1,h2,h3 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.15; text-wrap: balance; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select, textarea { font: inherit; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--peacock); outline-offset: 3px; }
+  .jaali {
+    min-height: 100dvh;
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(44,36,28,.09) 1px, transparent 0),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'><path fill='none' stroke='%232c241c' stroke-opacity='0.06' stroke-width='1' d='M28 4 L44 12 L52 28 L44 44 L28 52 L12 44 L4 28 L12 12 Z'/></svg>");
+    background-size: 12px 12px, 56px 56px;
+  }
+  .tricolour { height: 4px; background: linear-gradient(90deg, var(--saffron) 0 34%, var(--paper) 34% 66%, var(--leaf) 66% 100%); }
+  header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--border); background: rgba(243,235,224,.92); backdrop-filter: blur(8px); }
+  .wrap { max-width: 72rem; margin: 0 auto; padding: 0 1rem; }
+  .nav-row { height: 4rem; display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+  .brand { display: flex; align-items: center; gap: .5rem; }
+  .mark { width: 36px; height: 36px; display: grid; place-items: center; background: var(--saffron); color: var(--paper); border-radius: 8px; }
+  .deva { font-family: var(--font-deva); color: var(--saffron-deep); }
+  nav.desk { display: none; gap: .15rem; }
+  nav.desk a { padding: .5rem .75rem; border-radius: 8px; font-size: .9rem; font-weight: 600; color: var(--muted); }
+  nav.desk a.on, nav.desk a:hover { background: var(--paper-deep); color: var(--ink); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 1rem; border-radius: 8px; border: 0; font-weight: 600; font-size: .9rem; }
+  .btn-p { background: var(--saffron); color: var(--paper); }
+  .btn-q { background: var(--peacock); color: var(--paper); }
+  .btn-o { background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--border); }
+  .btn-g { background: transparent; color: var(--ink); }
+  .card { background: var(--surface); border-radius: 18px; padding: 1.25rem; box-shadow: var(--shadow); }
+  .lift { transition: box-shadow .18s, transform .18s; }
+  .lift:hover { box-shadow: var(--shadow-h); }
+  .pill { display: inline-flex; align-items: center; border-radius: 999px; padding: .2rem .7rem; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .pill-f { background: rgba(196,92,38,.12); color: var(--saffron-deep); }
+  .pill-r { background: rgba(27,94,86,.1); color: var(--peacock-deep); }
+  .pill-c { background: var(--paper-deep); color: var(--ink); }
+  footer { margin-top: 4rem; border-top: 1px solid var(--border); background: var(--surface); padding: 2.5rem 0; }
+  .muted { color: var(--muted); }
+  .grid-2 { display: grid; gap: 1rem; }
+  .grid-3 { display: grid; gap: 1rem; }
+  .grid-4 { display: grid; gap: .75rem; grid-template-columns: 1fr 1fr; }
+  .field { display: grid; gap: .35rem; margin-bottom: .85rem; }
+  label { font-size: .9rem; font-weight: 600; }
+  input, select, textarea { width: 100%; min-height: 44px; padding: .55rem .75rem; border-radius: 8px; border: 0; background: var(--paper); box-shadow: 0 0 0 1px var(--border); color: var(--ink); }
+  textarea { min-height: 110px; resize: vertical; }
+  .toast { position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%); background: var(--surface); color: var(--ink); border: 1px solid var(--border); padding: .7rem 1rem; border-radius: 10px; box-shadow: var(--shadow); z-index: 80; display: none; }
+  .mob { display: inline-flex; }
+  .mob-nav { display: none; border-top: 1px solid var(--border); background: var(--surface); padding: .75rem 1rem; }
+  .mob-nav a { display: flex; min-height: 44px; align-items: center; padding: 0 .75rem; border-radius: 8px; font-weight: 600; }
+  @media (min-width: 1024px) {
+    nav.desk { display: flex; }
+    .mob { display: none; }
+    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 2.5rem; align-items: center; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .split { display: grid; grid-template-columns: 1fr 20rem; gap: 2rem; }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 2rem; }
+    .split { display: grid; grid-template-columns: 1fr 18rem; gap: 1.5rem; }
+  }
+  @media print { header, footer, .no-print { display: none !important; } body { background: #fff; } }
+</style>
+</head>
+<body>
+<div class="jaali">
+  <div class="tricolour"></div>
+  <header>
+    <div class="wrap nav-row">
+      <a class="brand" href="#/">
+        <span class="mark">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="12" r="5.2"/><circle cx="15" cy="12" r="5.2"/></svg>
+        </span>
+        <span>
+          <span class="deva" style="display:block;font-size:11px;line-height:1">सीखो सिखाओ</span>
+          <strong style="font-family:var(--font-display);font-size:1.05rem">Seekho Sikhao</strong>
+        </span>
+      </a>
+      <nav class="desk" id="deskNav"></nav>
+      <div style="display:flex;gap:.5rem;align-items:center">
+        <a class="btn btn-q" id="ctaBtn" href="#/register" style="display:none">Register</a>
+        <button class="btn btn-g mob" id="menuBtn" aria-label="Menu" style="min-width:44px">☰</button>
+      </div>
+    </div>
+    <div class="mob-nav" id="mobNav"></div>
+  </header>
+  <main id="app"></main>
+  <footer>
+    <div class="wrap grid-3">
+      <div>
+        <p class="deva" style="margin:0">सीखो सिखाओ</p>
+        <p style="font-family:var(--font-display);font-size:1.3rem;font-weight:600;margin:.2rem 0">Seekho Sikhao</p>
+        <p class="muted" style="font-size:.9rem;max-width:28rem">Indian students teaching Indian students. Batches of eight, Google Meet, parent consent, and an e-certificate when you finish. No fees.</p>
+      </div>
+      <div>
+        <p style="font-weight:600;margin:0 0 .5rem">Explore</p>
+        <p><a href="#/batches">Batches</a></p>
+        <p><a href="#/knowledge">Knowledge wall</a></p>
+        <p><a href="#/blogs">Blogs (100 followers)</a></p>
+        <p><a href="#/experiences">Experiences</a></p>
+      </div>
+      <div>
+        <p style="font-weight:600;margin:0 0 .5rem">Care</p>
+        <p><a href="#/how">How it works</a></p>
+        <p><a href="#/register">Register + parent consent</a></p>
+        <p><a href="#/about">About</a></p>
+        <p class="muted" style="font-size:.8rem">Group classes only. Tell an adult. Be kind.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const MIN=8, BLOG=100;
+const CATS=[
+  {id:"tech",label:"Tech",hindi:"टेक",blurb:"Python, web pages, robotics. Upload a trick. If people like it, they follow you."},
+  {id:"arts",label:"Art & craft",hindi:"कला",blurb:"Rangoli, mehendi, sketching, paint. Share a step-by-step from your notebook."},
+  {id:"music",label:"Music",hindi:"संगीत",blurb:"Tabla, bansuri, keyboard, Carnatic. Write how you keep taal at 6 a.m."},
+  {id:"dance",label:"Dance",hindi:"नृत्य",blurb:"Bharatanatyam, kathak, folk, hip-hop. Count the beats so a beginner can follow."},
+  {id:"languages",label:"Languages",hindi:"भाषा",blurb:"Hindi, English, Tamil, Urdu, Sanskrit. Short notes beat a heavy grammar book."},
+  {id:"stem",label:"STEM",hindi:"विज्ञान",blurb:"Maths tricks, science in a steel glass, chess, the night sky."},
+  {id:"sports",label:"Sports",hindi:"खेल",blurb:"Cricket in the compound, badminton, yoga. Explain one move clearly."},
+  {id:"life",label:"Life skills",hindi:"जीवन",blurb:"Tiffin cooking, kites, origami, video editing. Useful things school skips."}
+];
+const SKILLS={python:"Python",web:"Web design",robotics:"Robotics",rangoli:"Rangoli & kolam",mehendi:"Mehendi",tabla:"Tabla",bharatanatyam:"Bharatanatyam",english:"Spoken English",science:"Science experiments",chess:"Chess",cricket:"Cricket",hindi:"Hindi"};
+const CITIES=["Ahmedabad","Bengaluru","Bhopal","Chandigarh","Chennai","Dharamshala","Hyderabad","Indore","Jaipur","Kochi","Kolkata","Lucknow","Nagpur","Pune","Srinagar","Thiruvananthapuram"];
+const CLASSES=["Class 6","Class 7","Class 8","Class 9","Class 10","Class 11","Class 12"];
+const PEOPLE={
+  aditya:{id:"aditya",name:"Aditya Rao",city:"Bengaluru",cls:"Class 10",bio:"I learned Python from library books and broken programs. I explain loops with the school bell.",teaches:["python","web","chess"],followers:156,hue:155,role:"Student mentor"},
+  meera:{id:"meera",name:"Meera Iyer",city:"Chennai",cls:"Class 11",bio:"Bharatanatyam since class 2. I break a jathi into counts a beginner can clap.",teaches:["bharatanatyam"],followers:128,hue:350,role:"Student mentor"},
+  ananya:{id:"ananya",name:"Ananya Sharma",city:"Jaipur",cls:"Class 9",bio:"Morning kolam with my grandmother. The dots are like maths.",teaches:["rangoli","hindi"],followers:64,hue:18,role:"Student mentor"},
+  kabir:{id:"kabir",name:"Kabir Singh",city:"Chandigarh",cls:"Class 10",bio:"Tabla on the terrace at 6 a.m. Teentaal and dadra.",teaches:["tabla"],followers:89,hue:8,role:"Student mentor"},
+  arjun:{id:"arjun",name:"Arjun Menon",city:"Kochi",cls:"Class 10",bio:"Chess club captain. Last monsoon batch already has certificates.",teaches:["chess"],followers:71,hue:168,role:"Student mentor"},
+  fatima:{id:"fatima",name:"Fatima Khan",city:"Lucknow",cls:"Class 8",bio:"Urdu couplets in a ruled notebook. Collecting eight for spoken English.",teaches:["english"],followers:47,hue:210,role:"Student mentor"},
+  rohan:{id:"rohan",name:"Rohan Desai",city:"Pune",cls:"Class 9",bio:"Society cricket at 7 a.m. Everyone in my last batch got an e-certificate.",teaches:["cricket"],followers:58,hue:32,role:"Student mentor"},
+  priya:{id:"priya",name:"Priya Nair",city:"Thiruvananthapuram",cls:"Class 10",bio:"Science club secretary. Experiments that fit in a school bag.",teaches:["science"],followers:82,hue:175,role:"Student mentor"},
+  tenzin:{id:"tenzin",name:"Tenzin Dolma",city:"Dharamshala",cls:"Class 8",bio:"I sketch the Dhauladhar from the same bench after school.",teaches:[],followers:33,hue:195,role:"Student"},
+  ishaan:{id:"ishaan",name:"Ishaan Reddy",city:"Hyderabad",cls:"Class 11",bio:"Robotics club. I write tech notes so juniors do not cry at the sensor.",teaches:["robotics","python"],followers:91,hue:145,role:"Student mentor"},
+  nandini:{id:"nandini",name:"Nandini Das",city:"Kolkata",cls:"Class 9",bio:"I want a tiny site for our para library, so I read every web post in Tech.",teaches:[],followers:40,hue:280,role:"Student"},
+  zara:{id:"zara",name:"Zara Ahmed",city:"Hyderabad",cls:"Class 8",bio:"Mehendi for cousins and school fests. Slow hands.",teaches:["mehendi"],followers:51,hue:320,role:"Student mentor"},
+  sneha:{id:"sneha",name:"Sneha Patil",city:"Nagpur",cls:"Class 9",bio:"Badminton in the orange city. Looking for a Python batch that already has eight.",teaches:[],followers:29,hue:25,role:"Student"},
+  kavya:{id:"kavya",name:"Kavya Pillai",city:"Kochi",cls:"Class 8",bio:"I joined Arjun’s chess batch and actually finished it.",teaches:[],followers:36,hue:338,role:"Student"}
+};
+const BATCHES=[
+  {id:"python-zero",title:"Python from zero",cat:"tech",skill:"python",mentor:"aditya",city:"Bengaluru",desc:"Six Saturday mornings. Loops, lists, and one tiny program of your own. Meet opens after eight students join.",schedule:"Saturdays 8:00–9:00 a.m. IST",start:"6 September 2026",weeks:6,meet:"xqk-nwtp-rjm",max:16,students:["rohan","sneha","nandini","tenzin","kavya","ananya","fatima","ishaan","priya","zara"],status:"running"},
+  {id:"tabla-terrace",title:"Tabla terrace circle",cat:"music",skill:"tabla",mentor:"kabir",city:"Chandigarh",desc:"Teentaal and dadra. Group class on Google Meet. Parents welcome to sit at the back.",schedule:"Sundays 7:00–8:00 a.m. IST",start:"31 August 2026",weeks:8,meet:"bhd-kals-mne",max:12,students:["aditya","arjun","meera","priya","sneha","kavya","nandini","tenzin"],status:"running"},
+  {id:"rangoli-lab",title:"Rangoli geometry lab",cat:"arts",skill:"rangoli",mentor:"ananya",city:"Jaipur",desc:"Kolam as a grid. The Meet link stays locked until eight students are in.",schedule:"Fridays 5:30–6:30 p.m. IST",start:"11 September 2026",weeks:4,meet:"rng-kolm-jpr",max:14,students:["kavya","zara","meera","tenzin","nandini"],status:"forming"},
+  {id:"english-adda",title:"Spoken English adda",cat:"languages",skill:"english",mentor:"fatima",city:"Lucknow",desc:"Twenty minutes of only English. Five sentences about your day. We need eight students.",schedule:"Wednesdays 6:00–7:00 p.m. IST",start:"16 September 2026",weeks:6,meet:"lko-adda-eng",max:16,students:["tenzin","kavya","sneha","nandini","zara","priya"],status:"forming"},
+  {id:"cricket-compound",title:"Compound cricket",cat:"sports",skill:"cricket",mentor:"rohan",city:"Pune",desc:"Field placing and a clean throw. This batch is finished. Mentor and students both hold e-certificates.",schedule:"Saturdays 7:00–8:00 a.m. IST",start:"June 2026",weeks:8,meet:"pne-crkt-cmp",max:14,students:["aditya","arjun","ishaan","sneha","kabir","tenzin","kavya","nandini","priya"],status:"completed"},
+  {id:"science-bag",title:"Science in a school bag",cat:"stem",skill:"science",mentor:"priya",city:"Thiruvananthapuram",desc:"Heat, light, and one night of stars. Meet is live — we already crossed eight.",schedule:"Sundays 5:00–6:00 p.m. IST",start:"7 September 2026",weeks:5,meet:"tvm-sci-bag",max:18,students:["ananya","zara","nandini","ishaan","fatima","kavya","tenzin","sneha","aditya","meera","arjun"],status:"running"},
+  {id:"mehendi-fest",title:"Mehendi for school fest",cat:"arts",skill:"mehendi",mentor:"zara",city:"Hyderabad",desc:"Paisley, names, and a seal that lasts through annual day. Still forming.",schedule:"Thursdays 5:00–6:00 p.m. IST",start:"18 September 2026",weeks:4,meet:"hyd-mhnd-fst",max:12,students:["ananya","kavya","nandini"],status:"forming"},
+  {id:"chess-monsoon",title:"Monsoon chess circle",cat:"stem",skill:"chess",mentor:"arjun",city:"Kochi",desc:"Slow games while it rains. Batch closed. Certificates issued.",schedule:"Sundays 4:00–5:30 p.m. IST",start:"July 2026",weeks:6,meet:"koc-chss-mon",max:12,students:["aditya","kavya","priya","meera","tenzin","nandini","sneha","ananya"],status:"completed"},
+  {id:"bharatanatyam-counts",title:"Bharatanatyam counts",cat:"dance",skill:"bharatanatyam",mentor:"meera",city:"Chennai",desc:"Adavus with the camera on a chair so we can see feet. This batch is running.",schedule:"Saturdays 6:00–7:00 p.m. IST",start:"5 September 2026",weeks:8,meet:"maa-btnm-cnt",max:14,students:["kavya","ananya","zara","nandini","fatima","priya","tenzin","sneha"],status:"running"}
+];
+const POSTS=[
+  {id:"p1",author:"aditya",cat:"tech",title:"A loop is just the school bell",body:"The bell rings, you stand, you walk, you sit, it rings again. That is a loop. In Python you write for ring in range(8): and the same block happens eight times.",likes:48},
+  {id:"p2",author:"ishaan",cat:"tech",title:"When the line-follower lies",body:"If your robot dances in a circle, the sensor is too high. Tape it closer to the floor. Then print the values. Do not change three things at once.",likes:31},
+  {id:"p3",author:"nandini",cat:"tech",title:"One HTML page for a para library",body:"You need three tags to start: html, head, body. Then h1 for the library name and p for the timings. That is a website.",likes:22},
+  {id:"p4",author:"ananya",cat:"arts",title:"Kolam dots are a grid",body:"Pull five dots by five. Join them with one pull of the powder. If the line breaks, start that petal again — do not blow it.",likes:39},
+  {id:"p5",author:"zara",cat:"arts",title:"Mehendi that does not smudge on annual day",body:"Lemon-sugar seal when it is dry, not when it is wet. Sit with your hands up for twenty minutes.",likes:27},
+  {id:"p6",author:"kabir",cat:"music",title:"Keep teentaal with your foot, not your phone",body:"Sixteen beats. The foot goes down on 1, 5, 9, 13. Clap with me on Meet and we will slow it until it sits.",likes:35},
+  {id:"p7",author:"meera",cat:"dance",title:"Count a jathi before you try the hands",body:"If the feet are lost, the hands will be lost. I make beginners clap the jathi sitting down. Then we stand.",likes:41},
+  {id:"p8",author:"fatima",cat:"languages",title:"Speak English like a person, not a lesson",body:"Say what you did today in five sentences. “I packed my tiffin late” is a perfect sentence.",likes:19},
+  {id:"p9",author:"priya",cat:"stem",title:"Heat with a steel glass, not a volcano",body:"Warm water, cold water, a spoon. You can show convection in ten minutes. Write what you saw.",likes:28},
+  {id:"p10",author:"rohan",cat:"sports",title:"Field placing is just maths on grass",body:"If the batter is weak on the off side, you do not need nine people there. I draw the field in a notebook first.",likes:24}
+];
+const BLOGS=[
+  {id:"b1",author:"aditya",title:"How I got 100 followers with homework-time posts",body:"I wrote one tech note a week: loops, lists, a broken program I fixed. On follower 100 the blog button lit up. A blog is a longer notebook — the stuff that does not fit in a like-post."},
+  {id:"b2",author:"aditya",title:"Running a Python batch on Google Meet",body:"Eight is the rule. Before eight, I did not open the Meet link. Then the ninth student joined and the class felt like a class, not a tuition. When we finished, Seekho Sikhao printed e-certificates for me and for every student."},
+  {id:"b3",author:"meera",title:"Teaching adavus without a stage",body:"Google Meet is a small square. I ask everyone to put the camera on a chair, full body. After the batch, students wrote experiences. That helped the next group trust me."}
+];
+const EXPS=[
+  {id:"e1",author:"sneha",batch:"cricket-compound",role:"student",body:"I thought cricket batches would be only boys shouting. Rohan made us draw the field in a notebook first. After eight weeks I got an e-certificate."},
+  {id:"e2",author:"rohan",batch:"cricket-compound",role:"mentor",body:"Mentoring is slower than playing. When the batch closed, I got a mentor certificate. My parents put it next to my class 8 drawing prize."},
+  {id:"e3",author:"kavya",batch:"chess-monsoon",role:"student",body:"I only knew the horse. Arjun did not laugh. Google Meet from Kochi rain. The certificate has my name spelled right."},
+  {id:"e4",author:"arjun",batch:"chess-monsoon",role:"mentor",body:"Eight students is the right size. You can see everyone’s board if they tilt the camera."},
+  {id:"e5",author:"nandini",batch:"python-zero",role:"student",body:"Aditya’s bell story for loops actually stuck. I wrote a page for the para library. Meet every Saturday."}
+];
+const CERTS=[
+  {id:"SS-CRIC-ROHAN",user:"rohan",batch:"cricket-compound",role:"mentor",name:"Rohan Desai",when:"1 August 2026"},
+  {id:"SS-CRIC-ADITYA",user:"aditya",batch:"cricket-compound",role:"student",name:"Aditya Rao",when:"1 August 2026"},
+  {id:"SS-CRIC-SNEHA",user:"sneha",batch:"cricket-compound",role:"student",name:"Sneha Patil",when:"1 August 2026"},
+  {id:"SS-CHES-ARJUN",user:"arjun",batch:"chess-monsoon",role:"mentor",name:"Arjun Menon",when:"4 August 2026"},
+  {id:"SS-CHES-KAVYA",user:"kavya",batch:"chess-monsoon",role:"student",name:"Kavya Pillai",when:"4 August 2026"}
+];
+
+const empty={name:"",city:"",cls:"Class 8",bio:"",email:"",parentName:"",parentPhone:"",parentConsent:false,teaches:[],followers:0,registered:false,sampleOf:null};
+let S=JSON.parse(localStorage.getItem("seekho-html-v1")||"null")||{
+  me:{...empty}, liked:[], followed:[], joined:[], myPosts:[], myBlogs:[], myBatches:[], myExps:[], myCerts:[], completed:[]
+};
+function save(){ localStorage.setItem("seekho-html-v1", JSON.stringify(S)); }
+function toast(t){ const el=document.getElementById("toast"); el.textContent=t; el.style.display="block"; setTimeout(()=>el.style.display="none",2400); }
+function esc(s){ return String(s??"").replace(/&/g,"&"+"amp;").replace(/</g,"&"+"lt;").replace(/>/g,"&"+"gt;").replace(/"/g,"&"+"quot;"); }
+function cat(id){ return CATS.find(c=>c.id===id); }
+function person(id){ if(id==="me"||id===S.me.sampleOf) return {id:"me",name:S.me.name||"You",city:S.me.city,hue:24,followers:S.me.followers}; return PEOPLE[id]; }
+function avatar(p,size=48){
+  const hue=p?.hue||24, c1=`hsl(${hue} 42% 38%)`, c2=`hsl(${(hue+38)%360} 35% 78%)`;
+  const i=Math.abs(Math.round(hue))%4;
+  const motifs=[
+    `<circle cx="32" cy="32" r="22" fill="${c1}"/><circle cx="32" cy="32" r="10" fill="${c2}"/><circle cx="32" cy="18" r="4" fill="${c2}"/><circle cx="32" cy="46" r="4" fill="${c2}"/><circle cx="18" cy="32" r="4" fill="${c2}"/><circle cx="46" cy="32" r="4" fill="${c2}"/>`,
+    `<rect x="12" y="12" width="40" height="40" rx="6" fill="${c1}"/><path d="M32 14 L50 32 L32 50 L14 32 Z" fill="${c2}"/>`,
+    `<circle cx="32" cy="32" r="22" fill="${c1}"/><path d="M32 12 L36 28 L52 32 L36 36 L32 52 L28 36 L12 32 L28 28 Z" fill="${c2}"/>`,
+    `<circle cx="32" cy="32" r="22" fill="${c1}"/><circle cx="24" cy="26" r="7" fill="${c2}"/><circle cx="42" cy="26" r="7" fill="${c2}"/><circle cx="32" cy="42" r="7" fill="${c2}"/>`
+  ];
+  return `<svg viewBox="0 0 64 64" width="${size}" height="${size}" style="border-radius:50%;flex-shrink:0" role="img" aria-label="${esc(p?.name||"")}"><rect width="64" height="64" rx="32" fill="#f3ebe0"/>${motifs[i]}</svg>`;
+}
+function liveBatches(){
+  const map=new Map();
+  BATCHES.forEach(b=>map.set(b.id,{...b,students:[...b.students]}));
+  S.myBatches.forEach(b=>map.set(b.id,{...b,students:[...b.students]}));
+  S.joined.forEach(id=>{
+    const b=map.get(id); if(!b) return;
+    if(b.mentor==="me"||b.mentor===S.me.sampleOf) return;
+    if(b.students.includes("me")||(S.me.sampleOf&&b.students.includes(S.me.sampleOf))) return;
+    if(b.students.length<b.max) b.students.push("me");
+  });
+  return [...map.values()].map(b=>{
+    let status=b.status;
+    if(S.completed.includes(b.id)) status="completed";
+    else if(status!=="completed"&&b.students.length>=MIN) status="running";
+    return {...b,status,seats:b.students.length};
+  });
+}
+function statusPill(st){ const t=st==="forming"?"Forming":st==="running"?"Meet live":"Completed"; const c=st==="forming"?"pill-f":st==="running"?"pill-r":"pill-c"; return `<span class="pill ${c}">${t}</span>`; }
+function batchCard(b){
+  const m=person(b.mentor);
+  const need=Math.max(0,MIN-b.seats);
+  return `<a class="card lift" href="#/batch/${b.id}">
+    <div style="display:flex;justify-content:space-between;gap:.5rem"><span class="pill pill-f">${esc(cat(b.cat)?.label)}</span>${statusPill(b.status)}</div>
+    <h3 style="margin:.4rem 0 0">${esc(b.title)}</h3>
+    <p class="muted" style="font-size:.9rem">${esc(b.desc)}</p>
+    <p class="muted" style="font-size:.8rem">${esc(b.city)} · ${b.seats}/${MIN} to start · Google Meet</p>
+    <p style="font-size:.9rem">Mentor: ${esc(m?.name||"You")} · ${esc(SKILLS[b.skill]||b.skill)}</p>
+    ${b.status==="forming"?`<p style="color:var(--saffron-deep);font-size:.8rem;font-weight:600">${need?need+" more student"+(need===1?"":"s")+" to start.":"Ready to open Meet."}</p>`:""}
+  </a>`;
+}
+
+const NAV=[["#/","Home"],["#/batches","Batches"],["#/knowledge","Knowledge"],["#/blogs","Blogs"],["#/experiences","Experiences"],["#/how","How it works"]];
+function path(){ return (location.hash.replace(/^#/,"")||"/").split("?")[0]; }
+function qp(k){ const q=location.hash.split("?")[1]||""; return new URLSearchParams(q).get(k); }
+function go(h){ location.hash=h; }
+
+function paintNav(){
+  const p=path();
+  const links=NAV.map(([h,l])=>`<a href="${h}" class="${p===h.slice(1)||(h==="#/"&&p==="/")?"on":""}">${l}</a>`).join("");
+  deskNav.innerHTML=links;
+  mobNav.innerHTML=links+`<a class="btn btn-q" href="${S.me.registered?"#/adda":"#/register"}">${S.me.registered?"My adda":"Register"}</a>`;
+  const cta=document.getElementById("ctaBtn");
+  cta.style.display=window.innerWidth>=640?"inline-flex":"none";
+  cta.href=S.me.registered?"#/adda":"#/register";
+  cta.textContent=S.me.registered?"My adda":"Register";
+}
+
+function pageHome(){
+  const batches=liveBatches();
+  const spotlight=[...batches.filter(b=>b.status==="forming").slice(0,2), ...batches.filter(b=>b.status==="running").slice(0,1)].slice(0,3);
+  const stories=[...S.myExps,...EXPS].slice(0,3);
+  const mentors=Object.values(PEOPLE).filter(p=>p.followers>=BLOG);
+  return `<div>
+    <section class="wrap hero" style="padding:3rem 1rem">
+      <div>
+        <p class="deva" style="font-size:1.15rem;margin:0">सीखो सिखाओ</p>
+        <h1 style="font-size:clamp(2rem,5vw,3.2rem);margin:.4rem 0">Teach a batch. Learn in a batch. Not one-to-one.</h1>
+        <p class="muted" style="max-width:32rem">Indian school students share skills in groups of eight or more, on Google Meet, after a parent ticks consent. Upload a tech note, collect likes, and at 100 followers you can start a blog. When a batch finishes, mentor and students both get an e-certificate.</p>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.2rem">
+          <a class="btn btn-p" href="#/batches">See batches</a>
+          <a class="btn btn-o" href="${S.me.registered?"#/launch":"#/register"}">${S.me.registered?"Launch a batch":"Register"}</a>
+        </div>
+      </div>
+      <aside class="card">
+        <p class="muted" style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700">How a batch starts</p>
+        <ol style="padding:0;list-style:none;margin:1rem 0 0;display:grid;gap:.8rem">
+          <li style="display:flex;gap:.75rem"><span style="width:32px;height:32px;border-radius:8px;background:var(--saffron);color:var(--paper);display:grid;place-items:center;font-family:var(--font-display)">8</span><p style="margin:0"><strong>Minimum 8 students.</strong> Until then the Meet link stays locked. It is a class, not a private chat.</p></li>
+          <li style="display:flex;gap:.75rem"><span style="width:32px;height:32px;border-radius:8px;background:var(--peacock);color:var(--paper);display:grid;place-items:center;font-size:.8rem">▶</span><p style="margin:0"><strong>Google Meet</strong> for every session. Same link for the whole batch.</p></li>
+          <li style="display:flex;gap:.75rem"><span style="width:32px;height:32px;border-radius:8px;background:var(--leaf);color:var(--paper);display:grid;place-items:center;font-size:.8rem">★</span><p style="margin:0"><strong>E-certificate</strong> for the mentor and every student when the batch is marked done.</p></li>
+        </ol>
+      </aside>
+    </section>
+    <section style="border-block:1px solid var(--border);background:var(--surface)">
+      <div class="wrap" style="padding:3rem 1rem">
+        <p class="pill pill-f" style="margin:0">Three doors</p>
+        <h2 style="margin:.4rem 0 1rem;font-size:2rem">Pick a column and go in</h2>
+        <div class="grid-3">
+          ${[["#/batches","Batches","Join a batch","See forming and live classes. You need 8 students before Google Meet opens.","Open batches"],
+             ["#/launch","Launch batch","Teach what you know","Put up a skill, a city, and a time. When eight join, you become the mentor on Meet.","Launch a batch"],
+             ["#/register","Register","Parent consent first","A short form, like a diary note home. No batches, likes, or blogs without a parent tick.","Register"]
+          ].map(([h,k,t,b,c])=>`<a class="card lift" href="${h}" style="background:var(--paper)">
+            <div style="width:44px;height:44px;border-radius:8px;background:rgba(196,92,38,.12);display:grid;place-items:center;color:var(--saffron);font-weight:700">${k[0]}</div>
+            <p class="pill pill-f" style="margin:1rem 0 0">${k}</p>
+            <h3 style="margin:.3rem 0">${t}</h3>
+            <p class="muted" style="font-size:.9rem">${b}</p>
+            <span style="color:var(--peacock);font-weight:600;font-size:.9rem">${c}</span>
+          </a>`).join("")}
+        </div>
+      </div>
+    </section>
+    <section class="wrap" style="padding:3.5rem 1rem">
+      <p class="pill pill-f">Categories</p>
+      <h2 style="font-size:2rem;margin:.3rem 0">Share knowledge by subject</h2>
+      <p class="muted" style="max-width:36rem">Tech is the busy wall: upload a trick, collect likes. At 100 followers the blog unlocks.</p>
+      <div class="grid-4" style="margin-top:1.2rem">
+        ${CATS.map(c=>`<a class="card lift" href="#/knowledge?cat=${c.id}"><p class="deva" style="margin:0;font-size:.8rem">${c.hindi}</p><h3 style="margin:.2rem 0">${c.label}</h3><p class="muted" style="font-size:.75rem">${esc(c.blurb)}</p></a>`).join("")}
+      </div>
+    </section>
+    <section class="wrap" style="padding:0 1rem 3.5rem">
+      <div style="display:flex;justify-content:space-between;align-items:end"><h2 style="font-size:2rem;margin:0">Batches on the board</h2><a href="#/batches" style="color:var(--peacock);font-weight:600">All batches</a></div>
+      <div class="grid-3" style="margin-top:1.2rem">${spotlight.map(batchCard).join("")}</div>
+    </section>
+    <section style="background:var(--peacock);color:var(--paper)">
+      <div class="wrap" style="padding:3rem 1rem;display:grid;gap:2rem" >
+        <div>
+          <p style="opacity:.75;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700">E-certificate</p>
+          <h2 style="font-size:2rem;margin:.3rem 0">When the last class ends, both sides get a certificate</h2>
+          <p style="opacity:.9;max-width:36rem">Mentor copy and student copy. Print it for the cupboard. Here is Rohan’s mentor certificate from Compound cricket.</p>
+          <a class="btn btn-p" href="#/certificate/SS-CRIC-ROHAN" style="margin-top:1rem">View a sample certificate</a>
+        </div>
+        <div class="card" style="color:var(--ink);max-width:28rem">
+          <p class="deva" style="margin:0">सीखो सिखाओ</p>
+          <p style="font-family:var(--font-display);font-size:1.6rem;font-weight:600;margin:.2rem 0">Rohan Desai</p>
+          <p class="muted">Mentor · Compound cricket · issued August 2026</p>
+          <p style="color:var(--peacock-deep);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700">Certificate no. SS-CRIC-ROHAN</p>
+        </div>
+      </div>
+    </section>
+    <section class="wrap" style="padding:3.5rem 1rem">
+      <h2 style="font-size:2rem">Experiences after class</h2>
+      <div class="grid-3">${stories.map(s=>`<blockquote class="card lift"><p class="pill pill-f">${s.role==="mentor"?"Mentor":"Student"}</p><p style="font-family:var(--font-display);font-size:1.1rem">“${esc(s.body)}”</p></blockquote>`).join("")}</div>
+      <p><a href="#/experiences" style="color:var(--peacock);font-weight:600">Read more experiences</a></p>
+    </section>
+    <section class="wrap" style="padding:0 1rem 3.5rem">
+      <h2 style="font-size:2rem;margin:0">Blogs (100 followers)</h2>
+      <p class="muted">These students already crossed 100 followers, so they can write longer notes.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.75rem">${mentors.map(p=>`<a class="card lift" href="#/people/${p.id}"><strong>${esc(p.name)}</strong><span class="muted" style="display:block;font-size:.8rem">${p.followers} followers</span></a>`).join("")}</div>
+    </section>
+  </div>`;
+}
+
+function pageBatches(){
+  const st=qp("status"), c=qp("cat");
+  let list=liveBatches();
+  if(st) list=list.filter(b=>b.status===st);
+  if(c) list=list.filter(b=>b.cat===c);
+  const chip=(on,href,lab)=>`<a class="btn ${on?"btn-p":"btn-o"}" href="${href}" style="min-height:40px">${lab}</a>`;
+  return `<div class="wrap" style="padding:2.5rem 1rem">
+    <p class="pill pill-f">Batches</p>
+    <h1>Eight students, then Google Meet</h1>
+    <p class="muted" style="max-width:40rem">A batch is a small class, not a private tuition. Join one, or launch your own. Meet stays locked until eight names are on the list.</p>
+    <p><a class="btn btn-p" href="#/launch">Launch a batch</a></p>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem">
+      ${chip(!st,"#/batches","All states")}
+      ${chip(st==="forming","#/batches?status=forming","Forming")}
+      ${chip(st==="running","#/batches?status=running","Meet live")}
+      ${chip(st==="completed","#/batches?status=completed","Completed")}
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem">
+      ${chip(!c,"#/batches","All subjects")}
+      ${CATS.map(x=>chip(c===x.id,`#/batches?cat=${x.id}`,x.label)).join("")}
+    </div>
+    <p class="muted">${list.length} batch${list.length===1?"":"es"}</p>
+    <div class="grid-3">${list.map(batchCard).join("")||`<p class="card">Nothing in this filter.</p>`}</div>
+  </div>`;
+}
+
+function pageBatch(id){
+  const b=liveBatches().find(x=>x.id===id);
+  if(!b) return `<div class="wrap" style="padding:3rem 1rem"><h1>This page is not on the board</h1><a href="#/batches">Back to batches</a></div>`;
+  const m=person(b.mentor);
+  const isMentor=b.mentor==="me"||(S.me.sampleOf&&b.mentor===S.me.sampleOf);
+  const already=S.joined.includes(b.id)||(S.me.sampleOf&&b.students.includes(S.me.sampleOf));
+  const meetOpen=b.status==="running"||b.status==="completed";
+  const need=Math.max(0,MIN-b.seats);
+  return `<div class="wrap" style="padding:2.5rem 1rem">
+    <a href="#/batches" style="color:var(--peacock)">Back to batches</a>
+    <div class="split" style="margin-top:1rem">
+      <article class="card">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">${statusPill(b.status)}<span class="pill pill-f">${esc(cat(b.cat)?.label)}</span></div>
+        <h1>${esc(b.title)}</h1>
+        <p class="muted">${esc(b.city)} · ${b.seats} / ${b.max} students</p>
+        <p>${esc(b.desc)}</p>
+        <p class="muted">${esc(b.schedule)} · ${b.weeks} weeks · starts ${esc(b.start)}</p>
+        <div class="card" style="background:var(--paper);margin-top:1rem">
+          <h3 style="margin:0">Google Meet</h3>
+          ${meetOpen?`<p class="muted">Code <strong>${esc(b.meet)}</strong>. Same link every week. Parents may sit in.</p>
+          <a class="btn btn-p" href="https://meet.google.com/${b.meet}" target="_blank" rel="noreferrer">Open Google Meet</a>`
+          :`<p class="muted">Meet stays locked until ${MIN} students join. Need ${need} more.</p>`}
+        </div>
+        <div style="margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap" class="no-print">
+          ${isMentor?(b.status==="completed"?`<p class="muted">This batch is closed. Certificates are out.</p>`:`<button class="btn btn-p" onclick="completeBatch('${b.id}')">Mark batch done</button>`)
+          : already?`<p style="color:var(--peacock-deep);font-weight:600">You are in this batch.</p>`
+          : b.status==="completed"?`<p class="muted">This batch has finished.</p>`
+          : `<button class="btn btn-p" onclick="joinBatch('${b.id}')">Join this batch</button>`}
+          ${S.me.registered?"":`<a class="btn btn-o" href="#/register">Register first</a>`}
+        </div>
+      </article>
+      <aside>
+        <div class="card" style="margin-bottom:1rem">
+          <h3>Mentor</h3>
+          ${m&&b.mentor!=="me"?`<a href="#/people/${b.mentor}" style="display:flex;gap:.75rem;align-items:center">${avatar(m)}${esc(m.name)}<br><span class="muted" style="font-size:.8rem">${esc(m.cls||"")}</span></a>`:`<p>${esc(S.me.name||"You")}</p>`}
+        </div>
+        <div class="card"><h3>Students (${b.seats})</h3><ul>${b.students.map(sid=>{const p=person(sid); const lab=p?.name||"Student"; return `<li>${PEOPLE[sid]?`<a href="#/people/${sid}" style="color:var(--peacock)">${esc(lab)}</a>`:esc(lab)}</li>`;}).join("")}</ul></div>
+      </aside>
+    </div>
+  </div>`;
+}
+
+function pageLaunch(){
+  if(!S.me.registered) return `<div class="wrap" style="padding:2.5rem 1rem"><p class="pill pill-f">Launch batch</p><h1>Put a class on the board</h1><p class="card">Register with parent consent first. <a href="#/register" style="color:var(--peacock)">Open registration</a></p></div>`;
+  const skills=Object.entries(SKILLS).map(([id,n])=>`<option value="${id}">${n}</option>`).join("");
+  return `<div class="wrap" style="padding:2.5rem 1rem;max-width:42rem">
+    <p class="pill pill-f">Launch batch</p>
+    <h1>Put a class on the board</h1>
+    <p class="muted">You are the mentor. Google Meet opens only after 8 students join. When you mark it done, you and they both get an e-certificate.</p>
+    <form class="card" onsubmit="return launch(event)">
+      <div class="field"><label>Batch title</label><input name="title" required placeholder="Python from zero"></div>
+      <div class="field"><label>Skill</label><select name="skill">${skills}</select></div>
+      <div class="field"><label>City</label><select name="city">${CITIES.map(c=>`<option ${c===S.me.city?"selected":""}>${c}</option>`).join("")}</select></div>
+      <div class="field"><label>Meet time</label><input name="schedule" value="Saturdays 8:00–9:00 a.m. IST"></div>
+      <div class="field"><label>First class</label><input name="start" placeholder="20 September 2026"></div>
+      <div class="field"><label>What will you teach</label><textarea name="desc" required placeholder="Six Saturdays. Loops, lists, one tiny program."></textarea></div>
+      <p class="muted" style="font-size:.8rem">A Meet code is made for you. It stays hidden until 8 students join.</p>
+      <button class="btn btn-p" type="submit">Pin this batch</button>
+    </form>
+  </div>`;
+}
+
+function pageRegister(){
+  return `<div class="wrap" style="padding:2.5rem 1rem;max-width:42rem">
+    <p class="pill pill-f">Register</p>
+    <h1>A diary note for home</h1>
+    <p class="muted">Students fill the top. A parent or guardian ticks consent at the bottom. Without that tick you cannot join a batch or open Meet.</p>
+    <div class="card" style="margin:1rem 0">
+      <p style="font-weight:600;margin:0">Try the demo as someone already on the board</p>
+      <p style="margin:.8rem 0 0;display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn btn-o" onclick="trySample('ananya')">Enter as Ananya</button>
+        <button class="btn btn-o" onclick="trySample('aditya')">Enter as Aditya</button>
+      </p>
+      <p class="muted" style="font-size:.8rem">Demo only. Aditya already has 100+ followers, so you can write a blog.</p>
+    </div>
+    <form class="card" onsubmit="return registerMe(event)">
+      <h2>Student</h2>
+      <div class="field"><label>Your name</label><input name="name" required></div>
+      <div class="field"><label>Class</label><select name="cls">${CLASSES.map(c=>`<option>${c}</option>`).join("")}</select></div>
+      <div class="field"><label>City</label><select name="city" required><option value="">Pick a city</option>${CITIES.map(c=>`<option>${c}</option>`).join("")}</select></div>
+      <div class="field"><label>A few lines about you</label><textarea name="bio" placeholder="What can you teach? When are you free?"></textarea></div>
+      <div style="background:var(--paper);border-radius:12px;padding:1rem">
+        <h2 style="margin-top:0">Parent / guardian consent</h2>
+        <p class="muted" style="font-size:.9rem">Classes are group batches on Google Meet, never one-to-one. Minimum eight students. No fees.</p>
+        <div class="field"><label>Parent or guardian name</label><input name="parentName" required></div>
+        <div class="field"><label>Phone</label><input name="parentPhone" placeholder="10-digit mobile"></div>
+        <label style="display:flex;gap:.7rem;align-items:flex-start;font-weight:400">
+          <input type="checkbox" name="consent" style="width:18px;min-height:18px;margin-top:4px">
+          <span>I am the parent/guardian. I consent to my child joining Seekho Sikhao group batches on Google Meet. I understand there are no fees and that classes start only when eight students have joined.</span>
+        </label>
+      </div>
+      <p><button class="btn btn-p" type="submit">Save registration</button></p>
+    </form>
+  </div>`;
+}
+
+function pageKnowledge(){
+  const c=qp("cat");
+  const posts=[...S.myPosts,...POSTS].filter(p=>!c||p.cat===c);
+  const info=cat(c);
+  return `<div class="wrap" style="padding:2.5rem 1rem">
+    <p class="pill pill-f">Knowledge</p>
+    <h1>${info?info.label:"The knowledge wall"}</h1>
+    <p class="muted" style="max-width:40rem">${info?info.blurb:"Pick a subject. Upload what you know. Other students like it. At 100 followers, you may open a blog."}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0">
+      <a class="btn ${!c?"btn-p":"btn-o"}" href="#/knowledge">All</a>
+      ${CATS.map(x=>`<a class="btn ${c===x.id?"btn-p":"btn-o"}" href="#/knowledge?cat=${x.id}">${x.label}</a>`).join("")}
+    </div>
+    <div class="split">
+      <div style="display:grid;gap:1rem">${posts.map(p=>{
+        const a=person(p.author); const liked=S.liked.includes(p.id); const n=p.likes+(liked?1:0);
+        return `<article class="card lift">
+          <div style="display:flex;gap:.75rem">${avatar(a)}<div><a href="${PEOPLE[p.author]?`#/people/${p.author}`:"#/adda"}" style="font-family:var(--font-display);font-size:1.1rem;font-weight:600">${esc(a?.name||"You")}</a><p class="muted" style="margin:0;font-size:.8rem">${esc(a?.city||"")} · ${esc(cat(p.cat)?.label)}</p></div></div>
+          <h3>${esc(p.title)}</h3><p class="muted">${esc(p.body)}</p>
+          <button class="btn ${liked?"btn-p":"btn-o"}" onclick="likePost('${p.id}')">♥ ${n} like${n===1?"":"s"}</button>
+        </article>`;
+      }).join("")}</div>
+      <form class="card" onsubmit="return addPost(event)">
+        <h2 style="margin-top:0">Upload a note</h2>
+        <p class="muted" style="font-size:.8rem">Short and useful. Tech notes get the most likes right now.</p>
+        <div class="field"><label>Subject</label><select name="cat">${CATS.map(x=>`<option value="${x.id}" ${x.id===(c||"tech")?"selected":""}>${x.label}</option>`).join("")}</select></div>
+        <div class="field"><label>Title</label><input name="title" placeholder="A loop is just the school bell"></div>
+        <div class="field"><label>The note</label><textarea name="body" placeholder="Write the trick in your own words."></textarea></div>
+        ${S.me.registered?`<button class="btn btn-p" type="submit">Pin to the wall</button>`:`<a class="btn btn-p" href="#/register">Register to post</a>`}
+      </form>
+    </div>
+  </div>`;
+}
+
+function pageBlogs(){
+  const blogs=[...S.myBlogs,...BLOGS];
+  const unlocked=S.me.registered&&S.me.followers>=BLOG;
+  const left=Math.max(0,BLOG-S.me.followers);
+  return `<div class="wrap" style="padding:2.5rem 1rem;max-width:46rem">
+    <p class="pill pill-f">Blogs</p>
+    <h1>Unlocked at 100 followers</h1>
+    <p class="muted">A like-post is a trick. A blog is a longer notebook. You earn it by teaching batches and sharing knowledge.</p>
+    <p>${S.me.registered?`You have ${S.me.followers} followers. ${unlocked?"Your blog is open.":left+" more to unlock."}`:`<a href="#/register" style="color:var(--peacock)">Register</a> or enter as Aditya to see a blog that is already open.`}</p>
+    ${unlocked?`<form class="card" onsubmit="return addBlog(event)"><h2>Write a blog note</h2>
+      <div class="field"><label>Title</label><input name="title" required></div>
+      <div class="field"><label>Body</label><textarea name="body" required></textarea></div>
+      <button class="btn btn-p">Publish</button></form>`:""}
+    <div style="display:grid;gap:1rem;margin-top:1.5rem">${blogs.map(b=>`<article class="card lift"><p class="muted">${esc(person(b.author)?.name)} </p><h2 style="margin:.2rem 0"><a href="#/blog/${b.id}">${esc(b.title)}</a></h2><p class="muted">${esc(b.body)}</p></article>`).join("")}</div>
+  </div>`;
+}
+
+function pageBlog(id){
+  const b=[...S.myBlogs,...BLOGS].find(x=>x.id===id);
+  if(!b) return `<div class="wrap" style="padding:3rem 1rem"><h1>Not on the board</h1></div>`;
+  return `<div class="wrap" style="padding:2.5rem 1rem;max-width:42rem">
+    <a href="#/blogs" style="color:var(--peacock)">Back to blogs</a>
+    <p class="muted">${esc(person(b.author)?.name)}</p>
+    <h1>${esc(b.title)}</h1>
+    ${b.body.split("\\n").map(p=>p.trim()?`<p class="muted">${esc(p)}</p>`:"").join("")}
+  </div>`;
+}
+
+function pageExperiences(){
+  const stories=[...S.myExps,...EXPS];
+  const mine=liveBatches().filter(b=>b.mentor==="me"||b.mentor===S.me.sampleOf||S.joined.includes(b.id)||(S.me.sampleOf&&b.students.includes(S.me.sampleOf)));
+  return `<div class="wrap" style="padding:2.5rem 1rem;max-width:46rem">
+    <p class="pill pill-f">Experiences</p>
+    <h1>After the last Meet</h1>
+    <p class="muted">Mentors and students both write. This is how the next batch decides who to trust.</p>
+    ${S.me.registered?`<form class="card" onsubmit="return addExp(event)">
+      <h2>Write yours</h2>
+      <div class="field"><label>Batch</label><select name="batch">${mine.map(b=>`<option value="${b.id}">${esc(b.title)}</option>`).join("")||`<option value="">Join a batch first</option>`}</select></div>
+      <div class="field"><label>I was the</label><select name="role"><option value="student">Student</option><option value="mentor">Mentor</option></select></div>
+      <div class="field"><label>What happened</label><textarea name="body" required></textarea></div>
+      <button class="btn btn-p">Pin experience</button>
+    </form>`:`<p><a href="#/register" style="color:var(--peacock)">Register</a> to write after a batch.</p>`}
+    <div style="display:grid;gap:1rem;margin-top:1.5rem">${stories.map(s=>`<blockquote class="card lift"><p class="pill pill-f">${s.role==="mentor"?"Mentor":"Student"} · ${esc(liveBatches().find(b=>b.id===s.batch)?.title||"")}</p><p style="font-family:var(--font-display);font-size:1.15rem">“${esc(s.body)}”</p><footer class="muted">${esc(person(s.author)?.name)}</footer></blockquote>`).join("")}</div>
+  </div>`;
+}
+
+function pageCert(id){
+  const c=[...S.myCerts,...CERTS].find(x=>x.id===id);
+  if(!c) return `<div class="wrap" style="padding:3rem 1rem"><h1>Certificate not found</h1></div>`;
+  const b=liveBatches().find(x=>x.id===c.batch);
+  return `<div class="wrap" style="padding:2.5rem 1rem;max-width:46rem">
+    <div class="no-print" style="display:flex;justify-content:space-between;margin-bottom:1rem"><a href="#/adda" style="color:var(--peacock)">Back to my adda</a><button class="btn btn-o" onclick="print()">Print / save</button></div>
+    <div class="card" style="text-align:center;padding:3rem 1.5rem;position:relative;box-shadow:inset 0 0 0 3px var(--saffron), 0 0 0 8px var(--surface), inset 0 0 0 8px var(--peacock)">
+      <p class="deva">सीखो सिखाओ</p>
+      <p class="muted" style="letter-spacing:.2em;text-transform:uppercase;font-size:11px;font-weight:700">E-certificate of completion</p>
+      <h1 style="margin:1.2rem 0 .4rem">This is to certify that</h1>
+      <p style="font-family:var(--font-display);font-size:2.2rem;color:var(--saffron-deep);font-weight:600;margin:.3rem 0">${esc(c.name)}</p>
+      <p class="muted" style="max-width:32rem;margin:1rem auto">has completed the Seekho Sikhao batch <strong style="color:var(--ink)">${esc(b?.title||"Skill batch")}</strong> as <strong style="color:var(--ink)">${c.role==="mentor"?"Mentor":"Student"}</strong>. Classes were held as a group on Google Meet.</p>
+      <p>${esc(c.when||"")} · Certificate no. ${esc(c.id)}</p>
+      <p class="muted" style="font-size:.8rem">No fees. One skill shared. Be kind.</p>
+    </div>
+  </div>`;
+}
+
+function pageAdda(){
+  if(!S.me.registered) return `<div class="wrap" style="padding:4rem 1rem;text-align:center"><h1>No adda yet</h1><p class="muted">Register with parent consent, then this page fills.</p><a class="btn btn-p" href="#/register">Register</a></div>`;
+  const mine=liveBatches().filter(b=>b.mentor==="me"||b.mentor===S.me.sampleOf||S.joined.includes(b.id)||(S.me.sampleOf&&b.students.includes(S.me.sampleOf)));
+  const certs=[...S.myCerts,...CERTS].filter(c=>c.user==="me"||c.user===S.me.sampleOf||c.name===S.me.name);
+  const left=Math.max(0,BLOG-S.me.followers);
+  return `<div class="wrap" style="padding:2.5rem 1rem">
+    <p class="pill pill-f">My adda</p>
+    <h1>${esc(S.me.name)}’s adda</h1>
+    <p class="muted">${esc(S.me.cls)} · ${esc(S.me.city)}${S.me.parentConsent?" · parent consent on file":""}${S.me.sampleOf?" · demo profile":""}</p>
+    <div class="grid-3" style="max-width:28rem;margin:1rem 0">
+      <div class="card"><div class="muted" style="font-size:.8rem">followers</div><strong style="font-family:var(--font-display);font-size:1.8rem">${S.me.followers}</strong></div>
+      <div class="card"><div class="muted" style="font-size:.8rem">following</div><strong style="font-family:var(--font-display);font-size:1.8rem">${S.followed.length}</strong></div>
+      <div class="card"><div class="muted" style="font-size:.8rem">certificates</div><strong style="font-family:var(--font-display);font-size:1.8rem">${certs.length}</strong></div>
+    </div>
+    <p class="muted">${left===0?"Blog unlocked. Write longer notes on the Blogs page.":left+" more followers to unlock a blog."}</p>
+    <p style="display:flex;gap:.5rem;flex-wrap:wrap"><a class="btn btn-p" href="#/launch">Launch a batch</a><a class="btn btn-o" href="#/knowledge">Upload knowledge</a><button class="btn btn-g" onclick="resetDemo()">Reset demo</button></p>
+    <h2>Your batches</h2>
+    <div class="grid-3">${mine.map(batchCard).join("")||`<p class="muted">Join one from <a href="#/batches" style="color:var(--peacock)">Batches</a>.</p>`}</div>
+    <h2>E-certificates</h2>
+    <div class="grid-2">${certs.map(c=>`<a class="card lift" href="#/certificate/${c.id}"><p class="pill pill-f">${c.role==="mentor"?"Mentor":"Student"}</p><h3 style="margin:.3rem 0">${esc(c.name)}</h3><p class="muted" style="font-size:.8rem">${esc(c.id)}</p></a>`).join("")||`<p class="muted">Finish a batch. Mentor and student both receive one.</p>`}</div>
+  </div>`;
+}
+
+function pagePeople(id){
+  const p=PEOPLE[id]; if(!p) return `<div class="wrap" style="padding:3rem 1rem"><h1>Not on the board</h1></div>`;
+  const following=S.followed.includes(p.id);
+  const followers=p.followers+(following?1:0);
+  const batches=liveBatches().filter(b=>b.mentor===p.id);
+  const posts=POSTS.filter(x=>x.author===p.id);
+  const blogs=BLOGS.filter(x=>x.author===p.id);
+  return `<div class="wrap" style="padding:2.5rem 1rem">
+    <a href="#/knowledge" style="color:var(--peacock)">Back to knowledge</a>
+    <div class="card" style="margin-top:1rem;display:flex;gap:1rem;flex-wrap:wrap">${avatar(p,80)}
+      <div><h1 style="margin:.2rem 0">${esc(p.name)}</h1>
+      <p class="muted">${esc(p.cls)} · ${esc(p.city)}</p>
+      <p class="muted">${esc(p.role)} · ${followers} followers${followers>=BLOG?" · blog open":""}</p>
+      <p>${esc(p.bio)}</p>
+      <button class="btn ${following?"btn-o":"btn-p"}" onclick="follow('${p.id}')">${following?"Following":"Follow"}</button>
+      </div></div>
+    ${batches.length?`<h2>Batches they mentor</h2><div class="grid-3">${batches.map(batchCard).join("")}</div>`:""}
+    ${posts.length?`<h2>Knowledge notes</h2>${posts.map(x=>`<div class="card" style="margin:.6rem 0"><h3 style="margin:.2rem 0">${esc(x.title)}</h3><p class="muted">${esc(x.body)}</p></div>`).join("")}`:""}
+    ${blogs.length?`<h2>Blog</h2>${blogs.map(x=>`<a class="card lift" href="#/blog/${x.id}" style="display:block;margin:.6rem 0"><h3>${esc(x.title)}</h3></a>`).join("")}`:""}
+  </div>`;
+}
+
+function pageHow(){
+  return `<div class="wrap" style="padding:2.5rem 1rem;max-width:44rem">
+    <p class="pill pill-f">How it works</p>
+    <h1>A class, not a private tuition</h1>
+    <p class="muted">Seekho Sikhao is for Indian school students. You share a skill with a batch, not with one stranger. Parent consent first. Google Meet. Eight people minimum. A certificate at the end.</p>
+    ${[["1","Register with a parent tick","Fill your name, class, city. A parent or guardian signs the consent block."],
+       ["2","Share knowledge in a category","Tech, art, music, dance, languages, STEM, sports, life. Upload a short note. Likes grow followers."],
+       ["3","Join or launch a batch of 8","The Google Meet link stays locked until eight students are in. Then it is a real class."],
+       ["4","Finish and collect a certificate","The mentor marks the batch done. Mentor and every student get an e-certificate."],
+       ["5","Open a blog at 100 followers","Short notes stay on the wall. A blog is a longer notebook. You earn it."]
+    ].map(([n,t,b])=>`<div style="display:flex;gap:1rem;margin:1.2rem 0"><span style="width:44px;height:44px;border-radius:8px;background:var(--saffron);color:var(--paper);display:grid;place-items:center;font-family:var(--font-display);font-size:1.2rem">${n}</span><div><h2 style="margin:0">${t}</h2><p class="muted">${b}</p></div></div>`).join("")}
+    <div class="card"><h2>House rules</h2><ul class="muted"><li>No fees, no UPI, no paid “premium mentor”.</li><li>Group batches only. No one-to-one private calls.</li><li>Google Meet, same link for the whole class. Parents may sit in.</li><li>Minimum eight students before Meet opens.</li><li>Be patient. The mentor is also a student.</li></ul></div>
+    <p style="display:flex;gap:.5rem"><a class="btn btn-p" href="#/register">Register</a><a class="btn btn-o" href="#/batches">See batches</a></p>
+  </div>`;
+}
+
+function pageAbout(){
+  return `<div class="wrap" style="padding:2.5rem 1rem;max-width:44rem">
+    <p class="pill pill-f">About</p>
+    <h1>A courtyard class, on Meet</h1>
+    <p class="muted">Seekho Sikhao means learn, teach. It is a skill-swap for Indian school students that refuses one-to-one tutoring. You teach a batch. You learn in a batch. Eight names, then Google Meet. A parent ticks consent. When the last class ends, both sides get an e-certificate.</p>
+    <p class="muted">Knowledge sits in subjects — tech, art, music, and the rest. Likes are how a note travels. One hundred followers unlocks a blog, which is just a longer notebook.</p>
+    <div class="card"><h2>What stays Indian on purpose</h2><ul class="muted"><li>Cities, skills, and school times that sound like home.</li><li>Google Meet, because that is already how class groups talk.</li><li>A diary-style parent consent, not a terms-of-service wall.</li><li>Certificates you can print for the cupboard.</li></ul></div>
+    <p class="muted">Profiles you create stay in this browser. The students on the board are written characters, not real people.</p>
+    <p><a class="btn btn-p" href="#/register">Register</a> <a class="btn btn-o" href="#/batches">See batches</a></p>
+  </div>`;
+}
+
+window.joinBatch=function(id){
+  if(!S.me.registered||!S.me.parentConsent){ toast("Register with parent consent first."); go("/register"); return; }
+  if(S.joined.includes(id)){ toast("You are already in this batch."); return; }
+  S.joined.push(id); save();
+  const b=liveBatches().find(x=>x.id===id);
+  toast(b&&b.seats>=MIN?"You made eight. Google Meet is open.":"You are on the list.");
+  render();
+};
+window.completeBatch=function(id){
+  const b=liveBatches().find(x=>x.id===id);
+  if(!b) return;
+  if(b.seats<MIN){ toast("Need 8 students before you close."); return; }
+  const isMentor=b.mentor==="me"||(S.me.sampleOf&&b.mentor===S.me.sampleOf);
+  if(!isMentor){ toast("Only the mentor can close a batch."); return; }
+  if(S.completed.includes(id)||b.status==="completed"){ toast("Already closed."); return; }
+  S.completed.push(id);
+  S.myCerts.unshift({id:"SS-ME-"+id.slice(-6).toUpperCase(),user:"me",batch:id,role:"mentor",name:S.me.name,when:new Date().toLocaleDateString("en-IN")});
+  S.me.followers+=15; save(); toast("Batch closed. Your mentor e-certificate is in My adda."); render();
+};
+window.likePost=function(id){
+  if(!S.me.registered){ toast("Register first, then like a note."); go("/register"); return; }
+  S.liked=S.liked.includes(id)?S.liked.filter(x=>x!==id):[...S.liked,id]; save(); render();
+};
+window.follow=function(id){
+  if(!S.me.registered){ toast("Register first, then follow."); go("/register"); return; }
+  S.followed=S.followed.includes(id)?S.followed.filter(x=>x!==id):[...S.followed,id]; save(); render();
+};
+window.trySample=function(id){
+  const p=PEOPLE[id]; if(!p) return;
+  S.me={name:p.name,city:p.city,cls:p.cls,bio:p.bio,email:id+"@school.example.in",parentName:"Parent (demo)",parentPhone:"9876543210",parentConsent:true,teaches:p.teaches,followers:p.followers,registered:true,sampleOf:id};
+  S.joined=id==="ananya"?["python-zero","science-bag"]:["tabla-terrace","cricket-compound","chess-monsoon"];
+  save(); toast(id==="aditya"?"You are Aditya (156 followers, blog open).":"You are Ananya (student in live batches)."); go("/adda");
+};
+window.resetDemo=function(){ S={me:{...empty},liked:[],followed:[],joined:[],myPosts:[],myBlogs:[],myBatches:[],myExps:[],myCerts:[],completed:[]}; save(); toast("Adda cleared on this device."); go("/"); };
+window.registerMe=function(e){
+  e.preventDefault(); const f=e.target;
+  if(!f.consent.checked){ toast("Parent consent is required before you join batches."); return false; }
+  S.me={name:f.name.value.trim(),city:f.city.value,cls:f.cls.value,bio:f.bio.value,email:"",parentName:f.parentName.value.trim(),parentPhone:f.parentPhone.value,parentConsent:true,teaches:[],followers:0,registered:true,sampleOf:null};
+  save(); toast("Adda open. Parent consent is on file."); go("/adda"); return false;
+};
+window.launch=function(e){
+  e.preventDefault(); const f=e.target;
+  const id="batch-"+Date.now();
+  const skill=f.skill.value;
+  const catId=Object.keys({python:"tech",web:"tech",robotics:"tech",rangoli:"arts",mehendi:"arts",tabla:"music",bharatanatyam:"dance",english:"languages",science:"stem",chess:"stem",cricket:"sports"})[skill]||"tech";
+  const map={python:"tech",web:"tech",robotics:"tech",rangoli:"arts",mehendi:"arts",tabla:"music",bharatanatyam:"dance",english:"languages",science:"stem",chess:"stem",cricket:"sports",hindi:"languages"};
+  S.myBatches.unshift({id,title:f.title.value.trim(),cat:map[skill]||"tech",skill,mentor:"me",city:f.city.value,desc:f.desc.value.trim(),schedule:f.schedule.value,start:f.start.value||"Next week",weeks:6,meet:"ss-"+id.slice(-6),max:16,students:[],status:"forming"});
+  save(); toast("Batch pinned. It starts when eight students join."); go("/batch/"+id); return false;
+};
+window.addPost=function(e){
+  e.preventDefault(); if(!S.me.registered){ toast("Register first."); return false; }
+  const f=e.target; if(!f.title.value.trim()||!f.body.value.trim()){ toast("Title and a short note, please."); return false; }
+  S.myPosts.unshift({id:"mine-"+Date.now(),author:"me",cat:f.cat.value,title:f.title.value.trim(),body:f.body.value.trim(),likes:0});
+  S.me.followers+=4; save(); toast("Pinned. Four students from your city followed you."); render(); return false;
+};
+window.addBlog=function(e){
+  e.preventDefault(); if(S.me.followers<BLOG){ toast("A blog unlocks at 100 followers."); return false; }
+  const f=e.target;
+  S.myBlogs.unshift({id:"myblog-"+Date.now(),author:"me",title:f.title.value.trim(),body:f.body.value.trim()});
+  save(); toast("Blog note published."); render(); return false;
+};
+window.addExp=function(e){
+  e.preventDefault(); const f=e.target;
+  if(!f.batch.value){ toast("Pick a batch you were in."); return false; }
+  S.myExps.unshift({id:"exp-"+Date.now(),author:"me",batch:f.batch.value,role:f.role.value,body:f.body.value.trim()});
+  save(); toast("Experience pinned."); render(); return false;
+};
+
+function render(){
+  paintNav();
+  const p=path();
+  let html="";
+  if(p==="/"||p==="") html=pageHome();
+  else if(p==="/batches") html=pageBatches();
+  else if(p.startsWith("/batch/")) html=pageBatch(p.slice(7));
+  else if(p==="/launch") html=pageLaunch();
+  else if(p==="/register") html=pageRegister();
+  else if(p==="/knowledge") html=pageKnowledge();
+  else if(p==="/blogs") html=pageBlogs();
+  else if(p.startsWith("/blog/")) html=pageBlog(p.slice(6));
+  else if(p==="/experiences") html=pageExperiences();
+  else if(p.startsWith("/certificate/")) html=pageCert(p.slice(13));
+  else if(p==="/adda") html=pageAdda();
+  else if(p.startsWith("/people/")) html=pagePeople(p.slice(8));
+  else if(p==="/how") html=pageHow();
+  else if(p==="/about") html=pageAbout();
+  else html=`<div class="wrap" style="padding:4rem 1rem;text-align:center"><h1>This page is not on the board</h1><a href="#/" style="color:var(--peacock)">Go home</a></div>`;
+  document.getElementById("app").innerHTML=html;
+  window.scrollTo(0,0);
+  document.getElementById("mobNav").style.display="none";
+}
+window.addEventListener("hashchange", render);
+window.addEventListener("resize", paintNav);
+document.getElementById("menuBtn").onclick=()=>{
+  const n=document.getElementById("mobNav");
+  n.style.display=n.style.display==="block"?"none":"block";
+};
+if(!location.hash) location.hash="#/";
+else render();
+</script>
+</body>
+</html>
